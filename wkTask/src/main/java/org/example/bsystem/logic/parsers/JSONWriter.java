@@ -1,4 +1,4 @@
-package org.example.bsystem.logic;
+package org.example.bsystem.logic.parsers;
 
 import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.entities.Rate;

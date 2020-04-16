@@ -1,8 +1,8 @@
-package org.example.bsystem.tests.logic;
+package org.example.bsystem.tests.logic.parsers;
 
 import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.entities.Rate;
-import org.example.bsystem.logic.JSONWriter;
+import org.example.bsystem.logic.parsers.JSONWriter;
 import org.junit.Assert;
 import org.junit.Test;
 
