@@ -1,4 +1,4 @@
-package org.example.bsystem.dao.daos.jdbc.managers;
+package org.example.bsystem.dao.daos.jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
  */
 public class ConnectionManager {
     private static ConnectionManager manager;
-    private final ResourceBundle resourceBundle;
+    private final PropertyManager propertyManager;
     private final List<Connection> connections;
     private final String url;
     private final Properties configuration;
@@ -23,15 +23,16 @@ public class ConnectionManager {
      * creates a connection pool
      */
     private ConnectionManager() {
-        resourceBundle = ResourceBundle.getBundle("data_base");
-        url = resourceBundle.getString("db.url");
+        propertyManager = PropertyManager.getManager();
+        url = propertyManager.getProperty("db.url");
         configuration = getConnectionConfig();
         try {
-            Class.forName(resourceBundle.getString("driver"));
+            Class.forName(propertyManager.getProperty("db.driver"));
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
             // TODO:  to log
         }
-        final int poolCapacity = Integer.parseInt(resourceBundle.getString("db.pool"));
+        final int poolCapacity = Integer.parseInt(propertyManager.getProperty("db.pool"));
         connections = new ArrayList<>();
         for (int connectionIndex = 0; connectionIndex < poolCapacity; connectionIndex++) {
             connections.add(createConnection());
@@ -80,6 +81,7 @@ public class ConnectionManager {
         }
         catch (SQLException e) {
             // TODO: to log
+            e.printStackTrace();
         }
         return connection;
     }
@@ -90,11 +92,11 @@ public class ConnectionManager {
      */
     private Properties getConnectionConfig() {
         Properties configuration = new Properties();
-        configuration.put("user", resourceBundle.getString("db.user"));
-        configuration.put("password", resourceBundle.getString("db.password"));
-        configuration.put("serverTimezone", resourceBundle.getString("db.serverTimezone"));
-        configuration.put("characterEncoding", resourceBundle.getString("db.characterEncoding"));
-        configuration.put("useUnicode", resourceBundle.getString("db.useUnicode"));
+        configuration.put("user", propertyManager.getProperty("db.user"));
+        configuration.put("password", propertyManager.getProperty("db.password"));
+        configuration.put("serverTimezone", propertyManager.getProperty("db.serverTimezone"));
+        configuration.put("characterEncoding", propertyManager.getProperty("db.characterEncoding"));
+        configuration.put("useUnicode", propertyManager.getProperty("db.useUnicode"));
         return configuration;
     }
 }
