@@ -1,10 +1,10 @@
 package org.example.bsystem.tests.daos.jdbc;
 
-import junit.framework.Assert;
 import org.example.bsystem.dao.daos.jdbc.JdbcClientDao;
 import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.interfaces.ClientDao;
-import org.junit.jupiter.api.Test;
+import org.junit.Assert;
+import org.junit.Test;
 
 import java.util.List;
 

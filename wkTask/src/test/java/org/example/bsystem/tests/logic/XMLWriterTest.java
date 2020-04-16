@@ -4,7 +4,7 @@ import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.entities.Rate;
 import org.example.bsystem.logic.XMLWriter;
 import org.junit.Assert;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
