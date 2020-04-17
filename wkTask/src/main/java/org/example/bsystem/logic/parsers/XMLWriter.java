@@ -1,5 +1,7 @@
 package org.example.bsystem.logic.parsers;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.entities.Rate;
 import org.w3c.dom.Document;
@@ -21,6 +23,7 @@ import java.util.List;
  * converts client entities into XML string
  */
 public class XMLWriter {
+    private static final Logger LOGGER = LogManager.getLogger(XMLWriter.class.getName());
     private DocumentBuilder documentBuilder;
     private Transformer transformer;
 
@@ -37,7 +40,7 @@ public class XMLWriter {
             transformer = transformerFactory.newTransformer();
         }
         catch (ParserConfigurationException | TransformerConfigurationException e) {
-            // TODO: to log
+            LOGGER.error(LOGGER.getName() + " - building factories error: " + e);
             e.printStackTrace();
         }
 

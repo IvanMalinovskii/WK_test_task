@@ -1,5 +1,8 @@
 package org.example.bsystem.dao.daos.jdbc;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -9,6 +12,7 @@ import java.util.Properties;
  * and queries
  */
 public class PropertyManager {
+    private static final Logger LOGGER = LogManager.getLogger(PropertyManager.class.getName());
     /**
      * a class instance for getting access to properties
      */
@@ -27,7 +31,7 @@ public class PropertyManager {
             properties.load(stream);
         }
         catch (IOException e) {
-            // TODO: to log
+            LOGGER.error(LOGGER.getName() + " - loading properties error: " + e);
         }
     }
 

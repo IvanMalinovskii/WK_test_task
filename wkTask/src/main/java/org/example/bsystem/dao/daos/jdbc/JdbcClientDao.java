@@ -1,5 +1,7 @@
 package org.example.bsystem.dao.daos.jdbc;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.example.bsystem.dao.entities.Client;
 import org.example.bsystem.dao.entities.Rate;
 import org.example.bsystem.dao.interfaces.ClientDao;
@@ -15,6 +17,7 @@ import java.util.List;
  * jdbc client dao implementation
  */
 public class JdbcClientDao implements ClientDao {
+    private static final Logger LOGGER = LogManager.getLogger(JdbcClientDao.class.getName());
     private final ConnectionManager connectionManager;
     private final PropertyManager propertyManager;
 
@@ -43,13 +46,11 @@ public class JdbcClientDao implements ClientDao {
                 return clients;
             }
             catch (SQLException e) {
-                // TODO: to log
-                e.printStackTrace();
+                LOGGER.error(LOGGER.getName() + " - prepared statement error: " + e);
             }
         }
         catch (SQLException e) {
-            // TODO: to log
-            e.printStackTrace();
+            LOGGER.error(LOGGER.getName() + " - result set error: " + e);
         }
         connectionManager.releaseConnection(connection);
         return null;

@@ -1,5 +1,8 @@
 package org.example.bsystem.dao.daos.jdbc;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,6 +16,7 @@ import java.util.ResourceBundle;
  * realizes connection pool
  */
 public class ConnectionManager {
+    private static final Logger LOGGER = LogManager.getLogger(ConnectionManager.class.getName());
     private static ConnectionManager manager;
     private final PropertyManager propertyManager;
     private final List<Connection> connections;
@@ -29,8 +33,7 @@ public class ConnectionManager {
         try {
             Class.forName(propertyManager.getProperty("db.driver"));
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            // TODO:  to log
+            LOGGER.error(LOGGER.getName() + "- cant't find jdbc driver: "+ e);
         }
         final int poolCapacity = Integer.parseInt(propertyManager.getProperty("db.pool"));
         connections = new ArrayList<>();
@@ -80,8 +83,7 @@ public class ConnectionManager {
             connection = DriverManager.getConnection(url, configuration);
         }
         catch (SQLException e) {
-            // TODO: to log
-            e.printStackTrace();
+            LOGGER.error(LOGGER.getName() + "- cant't open connection: "+ e);
         }
         return connection;
     }

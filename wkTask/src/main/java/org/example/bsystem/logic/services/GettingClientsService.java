@@ -18,7 +18,28 @@ public class GettingClientsService {
     private JSONWriter jsonWriter;
 
     /**
-     * initializes fileds
+     * contains a result string and content type
+     */
+    public static class ContentPair {
+        private String contentType;
+        private String content;
+
+        public ContentPair(String contentType, String content) {
+            this.contentType = contentType;
+            this.content = content;
+        }
+
+        public String getContentType() {
+            return contentType;
+        }
+
+        public String getContent() {
+            return content;
+        }
+    }
+
+    /**
+     * initializes fields
      */
     public GettingClientsService() {
         DaoFactory factory = StaticDaoFactory.getDaoFactory("JDBC");
@@ -32,14 +53,14 @@ public class GettingClientsService {
      * @param contentType result content type
      * @return returns a string with a result
      */
-    public String getResult(String contentType) {
+    public ContentPair getResult(String contentType) {
         List<Client> clients = clientDao.getAllEntities();
 
         switch (contentType) {
             case "xml":
-                return xmlWriter.getXMLString(clients);
+                return new ContentPair("text/xml", xmlWriter.getXMLString(clients));
             case "json":
-                return jsonWriter.getJsonString(clients);
+                return new ContentPair("application/json", jsonWriter.getJsonString(clients));
             default:
                 throw new RuntimeException("invalid content type");
         }
