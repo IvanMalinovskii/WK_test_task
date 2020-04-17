@@ -67,7 +67,7 @@ public class XMLWriter {
 
     private Document createFromClients(List<Client> clients) {
         Document document = documentBuilder.newDocument();
-        Element root = document.createElementNS("http://...", "clients");
+        Element root = document.createElement("clients");
         clients.forEach(client -> root.appendChild(getClientElement(client, document)));
         document.appendChild(root);
 

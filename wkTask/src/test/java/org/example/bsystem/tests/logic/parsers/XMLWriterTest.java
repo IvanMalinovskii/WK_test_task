@@ -16,7 +16,7 @@ public class XMLWriterTest {
 
     private static final String RESULT1 =
         "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
-            + "<clients xmlns=\"http://...\">"
+            + "<clients>"
                 + "<client><client_id>12</client_id>"
                 + "<login>log</login>"
                 + "<email>email</email>"
@@ -31,7 +31,7 @@ public class XMLWriterTest {
 
     private static final String RESULT2 =
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"no\"?>"
-            + "<clients xmlns=\"http://...\"/>";
+            + "<clients/>";
 
     /**
      * tests getting xml string realization with a filled list
