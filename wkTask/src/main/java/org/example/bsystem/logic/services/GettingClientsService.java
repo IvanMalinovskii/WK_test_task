@@ -53,14 +53,14 @@ public class GettingClientsService {
      * @param contentType result content type
      * @return returns a string with a result
      */
-    public ContentPair getResult(String contentType) {
+    public String getResult(String contentType) {
         List<Client> clients = clientDao.getAllEntities();
 
         switch (contentType) {
-            case "xml":
-                return new ContentPair("text/xml", xmlWriter.getXMLString(clients));
-            case "json":
-                return new ContentPair("application/json", jsonWriter.getJsonString(clients));
+            case "text/xml":
+                return xmlWriter.getXMLString(clients);
+            case "application/json":
+                return jsonWriter.getJsonString(clients);
             default:
                 throw new RuntimeException("invalid content type");
         }

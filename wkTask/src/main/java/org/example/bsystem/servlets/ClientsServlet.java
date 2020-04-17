@@ -38,11 +38,11 @@ public class ClientsServlet extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        final String contentType = req.getParameter("content");
-        final GettingClientsService.ContentPair pair = service.getResult(contentType);
+        final String contentType = req.getContentType();
+        final String responseString = service.getResult(contentType);
         resp.setCharacterEncoding("UTF-8");
-        resp.setContentType(pair.getContentType());
+        resp.setContentType(contentType);
         PrintWriter writer = resp.getWriter();
-        writer.write(pair.getContent());
+        writer.write(responseString);
     }
 }
