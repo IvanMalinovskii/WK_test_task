@@ -1,4 +1,4 @@
-package org.example.coucher.tests.services;
+package org.example.coucher.tests.logic;
 
 
 import org.exaple.coucher.logic.GetHttpRequest;
