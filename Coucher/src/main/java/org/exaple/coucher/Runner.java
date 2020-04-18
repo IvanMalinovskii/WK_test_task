@@ -24,6 +24,10 @@ public class Runner {
     private static Service cacheService;
     private static Service amqpService;
 
+    /**
+     * the main method: starts sets up services, starts timers
+     * @param args input args string
+     */
     public static void main(String[] args) {
         int cacheTime = Integer.parseInt(properties.getProperty("time.cache"));
         int brokerTime = Integer.parseInt(properties.getProperty("time.broker"));
@@ -34,7 +38,7 @@ public class Runner {
         }
         initializeServices();
         startTimers(cacheTime, brokerTime);
-        
+
         while (true){
 
         }

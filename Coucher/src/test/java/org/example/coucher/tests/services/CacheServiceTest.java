@@ -20,7 +20,7 @@ public class CacheServiceTest {
         ClientsDao clientsDao = Mockito.mock(CouchBaseClientsDao.class);
 
         Service service = new CacheService(request, transformer, clientsDao);
-        Mockito.when(transformer.getTransformed(Mockito.anyString())).thenReturn("\n1/12443");
+        Mockito.when(transformer.getTransformed(Mockito.anyString())).thenReturn("1/12443");
         service.doService();
 
         Mockito.verify(request).doRequest("text/xml");
