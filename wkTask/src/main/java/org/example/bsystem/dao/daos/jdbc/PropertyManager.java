@@ -12,7 +12,9 @@ import java.util.Properties;
  * and queries
  */
 public class PropertyManager {
+
     private static final Logger LOGGER = LogManager.getLogger(PropertyManager.class.getName());
+
     /**
      * a class instance for getting access to properties
      */
@@ -26,7 +28,9 @@ public class PropertyManager {
      * initializes properties
      */
     private PropertyManager() {
-        try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream("data_base.properties")) {
+
+        try (InputStream stream = this.getClass().getClassLoader().getResourceAsStream("db_properties.properties")) {
+
             properties = new Properties();
             properties.load(stream);
         }
@@ -57,4 +61,8 @@ public class PropertyManager {
 
         return properties.getProperty(key);
     }
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 5b42e4b9aeb771bf96537082c09c9fe15f44c09e

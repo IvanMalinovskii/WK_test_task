@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+
 /**
  * a singleton class for getting db connections\
  * realizes connection pool
@@ -37,6 +38,7 @@ public class ConnectionManager {
         }
         final int poolCapacity = Integer.parseInt(propertyManager.getProperty("db.pool"));
         connections = new ArrayList<>();
+
         for (int connectionIndex = 0; connectionIndex < poolCapacity; connectionIndex++) {
             connections.add(createConnection());
         }
