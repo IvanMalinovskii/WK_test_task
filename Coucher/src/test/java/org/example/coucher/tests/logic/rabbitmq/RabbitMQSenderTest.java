@@ -1,7 +1,7 @@
-package org.example.coucher.tests.logic;
+package org.example.coucher.tests.logic.rabbitmq;
 
 import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
-import org.exaple.coucher.rabbitmq.Sender;
+import org.exaple.coucher.logic.rabbitmq.RabbitMQSender;
 import org.junit.Assert;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -12,7 +12,7 @@ import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SenderTest {
+public class RabbitMQSenderTest {
     private static final ByteArrayOutputStream OUT = new ByteArrayOutputStream();
     private static final PrintStream ORIGINAL = System.out;
 
@@ -28,7 +28,7 @@ public class SenderTest {
 
     @Test
     public void testSend() {
-        Sender sender = new Sender();
+        RabbitMQSender sender = new RabbitMQSender();
         List<IdBalancePair> clients = new ArrayList<>();
         clients.add(new IdBalancePair(1, 21456));
 

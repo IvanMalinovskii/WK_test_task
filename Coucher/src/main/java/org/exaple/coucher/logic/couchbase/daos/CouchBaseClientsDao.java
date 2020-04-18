@@ -1,9 +1,10 @@
-package org.exaple.coucher.logic.couchbase;
+package org.exaple.coucher.logic.couchbase.daos;
 
 import com.couchbase.client.java.Bucket;
 import com.couchbase.client.java.document.json.JsonObject;
 import com.couchbase.client.java.query.N1qlQuery;
 import com.couchbase.client.java.query.N1qlQueryResult;
+import org.exaple.coucher.logic.couchbase.JsonConverter;
 import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
 import org.exaple.coucher.logic.couchbase.managers.CouchBaseConnector;
 import org.exaple.coucher.logic.couchbase.managers.PropertyManager;
@@ -14,12 +15,12 @@ import java.util.List;
 /**
  * gets/sets data from/to the base
  */
-public class CouchBaseDao {
+public class CouchBaseClientsDao implements ClientsDao {
     private final PropertyManager properties;
     private JsonConverter converter;
     private CouchBaseConnector connector;
 
-    public CouchBaseDao() {
+    public CouchBaseClientsDao() {
         properties = PropertyManager.getManager();
         connector = CouchBaseConnector.getConnector();
         converter = new JsonConverter();
@@ -40,7 +41,7 @@ public class CouchBaseDao {
      * @param minBalance min balance value
      * @return returns a list of result pairs
      */
-    public List<IdBalancePair> getClientsCacheByBalance(double minBalance) {
+    public List<IdBalancePair> getClientsByBalance(double minBalance) {
         Bucket bucket = connector.getBucket();
         N1qlQueryResult result = bucket.query(
                 N1qlQuery.parameterized(properties.getProperty("query.selectByBalance"),

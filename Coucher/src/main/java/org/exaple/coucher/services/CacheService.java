@@ -1,38 +1,50 @@
 package org.exaple.coucher.services;
 
-import org.exaple.coucher.logic.GetHttpRequest;
-import org.exaple.coucher.logic.XSLTTransformer;
-import org.exaple.coucher.logic.couchbase.CouchBaseDao;
+import org.exaple.coucher.logic.couchbase.daos.ClientsDao;
 import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
-import org.exaple.coucher.logic.couchbase.managers.PropertyManager;
+import org.exaple.coucher.logic.interfaces.Request;
+import org.exaple.coucher.logic.interfaces.Transformer;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
 /**
- * does HttpRequest and put results into a couchbase
+ * does HttpRequest and put results into a cache base
  */
-public class CacheService {
-    private final GetHttpRequest httpRequest;
-    private final XSLTTransformer transformer;
-    private final CouchBaseDao couchBaseDao;
+public class CacheService implements Service {
+    private final Request request;
+    private final Transformer transformer;
+    private final ClientsDao clientsDao;
 
-    public CacheService() {
-        final PropertyManager properties = PropertyManager.getManager();
-        httpRequest = new GetHttpRequest(properties.getProperty("http.url"));
-        String path = getClass().getClassLoader().getResource(properties.getProperty("xsl.name")).getPath();
-        transformer = new XSLTTransformer(path);
-        couchBaseDao = new CouchBaseDao();
+    /**
+     * initializes fields with input values
+     * @param request request to a service with initial data
+     * @param transformer transformer to transform a request result
+     * @param clientsDao a dao to store transformed data
+     */
+    public CacheService(Request request, Transformer transformer, ClientsDao clientsDao) {
+        this.request = request;
+        this.transformer = transformer;
+        this.clientsDao = clientsDao;
     }
 
-    public void cacheData() {
-        String result = httpRequest.doRequest("text/xml");
+    /**
+     * does request and put data into a cache base
+     */
+    public void doService() {
+        String result = request.doRequest("text/xml");
         String pairs = transformer.getTransformed(result);
         List<IdBalancePair> clients = convertIntoPair(pairs);
-        couchBaseDao.upsertClients(clients);
+        clientsDao.upsertClients(clients);
     }
 
+    /**
+     * converts pairs string into a list
+     * @param pairs pairs string to convert
+     * @return returns a list with client_id/balance pairs
+     */
     private List<IdBalancePair> convertIntoPair(String pairs) {
         Scanner scanner = new Scanner(pairs);
         scanner.nextLine();

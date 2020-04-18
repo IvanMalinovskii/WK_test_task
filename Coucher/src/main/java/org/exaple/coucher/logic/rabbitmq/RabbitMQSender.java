@@ -1,4 +1,4 @@
-package org.exaple.coucher.rabbitmq;
+package org.exaple.coucher.logic.rabbitmq;
 
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
 import org.exaple.coucher.logic.couchbase.managers.PropertyManager;
+import org.exaple.coucher.logic.interfaces.AMQPSender;
 
 import java.io.IOException;
 import java.util.List;
@@ -15,15 +16,15 @@ import java.util.concurrent.TimeoutException;
 /**
  * sends data to a broker
  */
-public class Sender {
-    private static final Logger LOGGER = LogManager.getLogger(Sender.class.getName());
+public class RabbitMQSender implements AMQPSender {
+    private static final Logger LOGGER = LogManager.getLogger(RabbitMQSender.class.getName());
     private static final String QUEUE_NAME = "clients_cache";
     private final ConnectionFactory factory;
 
     /**
      * initializes a connection factory
      */
-    public Sender() {
+    public RabbitMQSender() {
         final PropertyManager properties = PropertyManager.getManager();
         factory = new ConnectionFactory();
         factory.setHost(properties.getProperty("rmq.host"));

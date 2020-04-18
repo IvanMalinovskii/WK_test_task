@@ -1,6 +1,6 @@
-package org.example.coucher.tests.logic;
+package org.example.coucher.tests.logic.couchbase.daos;
 
-import org.exaple.coucher.logic.couchbase.CouchBaseDao;
+import org.exaple.coucher.logic.couchbase.daos.CouchBaseClientsDao;
 import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
 import org.junit.Assert;
 import org.junit.jupiter.api.*;
@@ -10,12 +10,12 @@ import java.util.List;
 
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class CouchBaseDaoTest {
-    private static CouchBaseDao couchBaseDao;
+    private static CouchBaseClientsDao couchBaseDao;
     private static List<IdBalancePair> clients;
 
     @BeforeAll
     static void initialize() {
-        couchBaseDao = new CouchBaseDao();
+        couchBaseDao = new CouchBaseClientsDao();
         clients = new ArrayList<>();
         clients.add(new IdBalancePair(-1, 211424.3));
         clients.add(new IdBalancePair(-2, 2114.3));
@@ -39,7 +39,7 @@ public class CouchBaseDaoTest {
     @Test
     @Order(2)
     public void testGetClientsCacheByBalance() {
-        List<IdBalancePair> gottenClients = couchBaseDao.getClientsCacheByBalance(100);
+        List<IdBalancePair> gottenClients = couchBaseDao.getClientsByBalance(100);
         Assert.assertTrue("count of elements should be more than 3", gottenClients.size() >= 4);
         couchBaseDao.deleteAllLowerThanZero();
     }

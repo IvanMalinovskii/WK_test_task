@@ -2,7 +2,7 @@ package org.exaple.coucher.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.exaple.coucher.logic.interfaces.HttpRequest;
+import org.exaple.coucher.logic.interfaces.Request;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +14,7 @@ import java.net.URL;
 /**
  * does GET request by the url
  */
-public class GetHttpRequest implements HttpRequest {
+public class GetHttpRequest implements Request {
     private static final Logger LOGGER = LogManager.getLogger(GetHttpRequest.class.getName());
     private URL url;
 
