@@ -1,7 +1,10 @@
-package org.exaple.coucher.logic.couchbase;
+package org.exaple.coucher.logic.couchbase.entities;
 
 import java.util.Objects;
 
+/**
+ * describes a client_id/balance pair
+ */
 public class IdBalancePair {
     private long id;
     private double balance;
@@ -35,9 +38,6 @@ public class IdBalancePair {
 
     @Override
     public String toString() {
-        return "IdBalancePair{" +
-                "id=" + id +
-                ", balance=" + balance +
-                '}';
+        return id + "/" + balance;
     }
 }

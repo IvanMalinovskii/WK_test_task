@@ -2,6 +2,7 @@ package org.exaple.coucher.logic;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.exaple.coucher.logic.interfaces.HttpRequest;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -13,7 +14,7 @@ import java.net.URL;
 /**
  * does GET request by the url
  */
-public class GetHttpRequest {
+public class GetHttpRequest implements HttpRequest {
     private static final Logger LOGGER = LogManager.getLogger(GetHttpRequest.class.getName());
     private URL url;
 
@@ -37,11 +38,11 @@ public class GetHttpRequest {
      */
     public String doRequest(String contentType) {
         try {
-            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            final HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-type", contentType);
             try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-                StringBuilder builder = new StringBuilder();
+                final StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     builder.append(line);

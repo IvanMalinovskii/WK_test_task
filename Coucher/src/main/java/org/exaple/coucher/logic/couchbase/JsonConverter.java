@@ -2,6 +2,7 @@ package org.exaple.coucher.logic.couchbase;
 
 import com.couchbase.client.java.document.JsonDocument;
 import com.couchbase.client.java.document.json.JsonObject;
+import org.exaple.coucher.logic.couchbase.entities.IdBalancePair;
 
 /**
  * converts json strings

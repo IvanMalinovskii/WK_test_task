@@ -2,7 +2,7 @@ package org.example.coucher.tests.logic;
 
 import org.exaple.coucher.logic.XSLTTransformer;
 import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -35,6 +35,7 @@ public class XSLTTransformerTest {
             "</rate>\n" +
             "</client>\n" +
             "</clients>";
+
     @Test
     public void testGetTransformed() {
         String path = getClass().getClassLoader().getResource("clients.xsl").getPath();

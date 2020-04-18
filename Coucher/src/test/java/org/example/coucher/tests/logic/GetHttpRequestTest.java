@@ -2,9 +2,8 @@ package org.example.coucher.tests.logic;
 
 
 import org.exaple.coucher.logic.GetHttpRequest;
-import org.exaple.coucher.services.HttpRequestService;
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.jupiter.api.Test;
 
 public class GetHttpRequestTest {
     @Test
