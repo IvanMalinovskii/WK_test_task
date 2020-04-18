@@ -4,5 +4,6 @@
 
     <xsl:template match="client">
         <xsl:value-of select="client_id"/>/<xsl:value-of select="balance"/>
+        <xsl:text> </xsl:text>
     </xsl:template>
 </xsl:stylesheet>

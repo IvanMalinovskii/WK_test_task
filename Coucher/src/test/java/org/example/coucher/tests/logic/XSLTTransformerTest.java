@@ -5,7 +5,9 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 /**
  * tests an xslt transformer class
@@ -41,12 +43,9 @@ public class XSLTTransformerTest {
         String path = getClass().getClassLoader().getResource("clients.xsl").getPath();
         XSLTTransformer transformer = new XSLTTransformer(path);
 
-        Scanner scanner = new Scanner(transformer.getTransformed(INITIAL_XML));
-        ArrayList<String> resultStrings = new ArrayList<>();
-        scanner.nextLine();
-        while (scanner.hasNextLine()) {
-            resultStrings.add(scanner.nextLine());
-        }
+        String[] values = transformer.getTransformed(INITIAL_XML).trim().split("\\s");
+        Object[] parsed = Arrays.stream(values).filter(s -> !s.isEmpty()).toArray();
+        ArrayList<Object> resultStrings = new ArrayList<>(Arrays.asList(parsed));
 
         Object[] expecteds = new String[] {"16/975512.0", "23/71780.0"};
         Object[] actuals = resultStrings.toArray();

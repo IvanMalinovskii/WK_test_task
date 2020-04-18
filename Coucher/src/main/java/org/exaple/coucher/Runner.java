@@ -23,7 +23,6 @@ public class Runner {
     private static final PropertyManager properties = PropertyManager.getManager();
     private static Service cacheService;
     private static Service amqpService;
-    private static Boolean isRun = true;
 
     public static void main(String[] args) {
         int cacheTime = Integer.parseInt(properties.getProperty("time.cache"));
@@ -35,13 +34,9 @@ public class Runner {
         }
         initializeServices();
         startTimers(cacheTime, brokerTime);
-        while (true) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            System.out.println("running");
+        
+        while (true){
+
         }
     }
 
@@ -56,32 +51,19 @@ public class Runner {
         amqpService = new AMQPService(clientsDao, sender);
     }
 
-    private static TimerTask cacheTask() {
+    private static TimerTask setUpTask(Service service) {
         return new TimerTask() {
             @Override
             public void run() {
-                while (isRun) {
-                    cacheService.doService();
-                }
-            }
-        };
-    }
-
-    private static  TimerTask brokerTask() {
-        return new TimerTask() {
-            @Override
-            public void run() {
-                while (isRun) {
-                    amqpService.doService();
-                }
+                    service.doService();
             }
         };
     }
 
     private static void startTimers(int cacheTime, int brokerTime) {
         Timer cacheTimer = new Timer(true);
-        cacheTimer.scheduleAtFixedRate(cacheTask(), 0, cacheTime * 1000);
+        cacheTimer.scheduleAtFixedRate(setUpTask(cacheService), 0, cacheTime * 1000);
         Timer brokerTimer = new Timer(true);
-        brokerTimer.scheduleAtFixedRate(brokerTask(), 0, brokerTime * 1000);
+        brokerTimer.scheduleAtFixedRate(setUpTask(amqpService), 0, brokerTime * 1000);
     }
 }

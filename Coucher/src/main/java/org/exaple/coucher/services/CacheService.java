@@ -46,12 +46,11 @@ public class CacheService implements Service {
      * @return returns a list with client_id/balance pairs
      */
     private List<IdBalancePair> convertIntoPair(String pairs) {
-        Scanner scanner = new Scanner(pairs);
-        scanner.nextLine();
+        String[] values = pairs.split("\\s");
         List<IdBalancePair> clients = new ArrayList<>();
-        while (scanner.hasNext()) {
-            String[] values = scanner.nextLine().split("[/]");
-            clients.add(new IdBalancePair(Integer.parseInt(values[0]), Double.parseDouble(values[1])));
+        for (String value : values) {
+            String[] pair = value.split("[/]");
+            clients.add(new IdBalancePair(Integer.parseInt(pair[0]), Double.parseDouble(pair[1])));
         }
         return clients;
     }
